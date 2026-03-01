@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Financial Learning Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#0f172a,#111827,#1e293b);
+            min-height:100vh;
+            color:#e5e7eb;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:15px 40px;
+            background:rgba(17,24,39,0.95);
+            backdrop-filter:blur(15px);
+            box-shadow:0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .navbar h1{
+            font-size:18px;
+            letter-spacing:1px;
+        }
+
+        .nav-links a{
+            text-decoration:none;
+            margin-left:20px;
+            color:#cbd5e1;
+            font-size:14px;
+            transition:.3s;
+        }
+
+        .nav-links a:hover{
+            color:#3b82f6;
+        }
+
+        .logout-btn{
+            padding:6px 14px;
+            background:linear-gradient(90deg,#ef4444,#dc2626);
+            border-radius:6px;
+            color:white !important;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container{
+            max-width:1100px;
+            margin:50px auto;
+            padding:0 20px;
+        }
+
+        .card{
+            background:rgba(17,24,39,0.95);
+            backdrop-filter:blur(20px);
+            padding:35px;
+            border-radius:22px;
+            margin-bottom:35px;
+            box-shadow:0 30px 80px rgba(0,0,0,0.7);
+            animation:fadeIn .6s ease;
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:25px;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-box{
+            display:flex;
+            gap:15px;
+            justify-content:center;
+        }
+
+        input{
+            padding:15px;
+            width:65%;
+            border-radius:12px;
+            border:none;
+            background:#1f2937;
+            color:white;
+            font-size:15px;
+            outline:none;
+        }
+
+        input:focus{
+            box-shadow:0 0 0 2px rgba(59,130,246,0.5);
+        }
+
+        button{
+            padding:15px 28px;
+            border:none;
+            border-radius:12px;
+            background:linear-gradient(90deg,#2563eb,#7c3aed);
+            color:white;
+            font-weight:600;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        button:hover{
+            transform:scale(1.05);
+            box-shadow:0 10px 30px rgba(99,102,241,0.5);
+        }
+
+        /* ================= SECTION TITLE ================= */
+
+        .section-title{
+            font-size:20px;
+            font-weight:600;
+            margin-bottom:20px;
+            border-left:4px solid #3b82f6;
+            padding-left:12px;
+        }
+
+        .content{
+            white-space:pre-line;
+            line-height:1.9;
+            color:#cbd5e1;
+            font-size:15px;
+        }
+
+        /* ================= VIDEOS ================= */
+
+        .video-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:30px;
+        }
+
+        .video-card{
+            background:rgba(30,41,59,0.8);
+            padding:15px;
+            border-radius:15px;
+            transition:.3s;
+        }
+
+        .video-card:hover{
+            transform:translateY(-5px);
+            box-shadow:0 10px 25px rgba(59,130,246,0.3);
+        }
+
+        .video-card h4{
+            margin-bottom:12px;
+            font-size:15px;
+            color:#60a5fa;
+        }
+
+        .iframe-wrapper{
+            position:relative;
+            width:100%;
+            padding-bottom:56.25%;
+            height:0;
+            overflow:hidden;
+            border-radius:12px;
+        }
+
+        .iframe-wrapper iframe{
+            position:absolute;
+            width:100%;
+            height:100%;
+            border-radius:12px;
+        }
+
+        /* ================= BOOKS & REFERENCES ================= */
+
+        .item-card{
+            background:rgba(30,41,59,0.85);
+            padding:18px;
+            border-radius:14px;
+            margin-bottom:12px;
+            transition:.3s;
+        }
+
+        .item-card:hover{
+            background:rgba(37,99,235,0.15);
+            transform:translateX(5px);
+        }
+
+        .item-card a{
+            text-decoration:none;
+            color:#60a5fa;
+        }
+
+        /* ================= LOADER ================= */
+
+        .loader{
+            display:none;
+            text-align:center;
+            margin-top:20px;
+        }
+
+        .loader span{
+            display:inline-block;
+            width:8px;
+            height:8px;
+            margin:3px;
+            background:#3b82f6;
+            border-radius:50%;
+            animation:bounce 1.4s infinite ease-in-out both;
+        }
+
+        .loader span:nth-child(1){animation-delay:-0.32s;}
+        .loader span:nth-child(2){animation-delay:-0.16s;}
+
+        @keyframes bounce{
+            0%,80%,100%{transform:scale(0);}
+            40%{transform:scale(1);}
+        }
+
+        @keyframes fadeIn{
+            from{opacity:0;transform:translateY(10px);}
+            to{opacity:1;transform:translateY(0);}
+        }
+
+        @media(max-width:768px){
+            .video-grid{grid-template-columns:1fr;}
+            .search-box{flex-direction:column;}
+            input{width:100%;}
+        }
+
+    </style>
+
+    <script>
+        function showLoader(){
+            document.getElementById("loader").style.display="block";
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <h1>📚 AI Finance Learning</h1>
+    <div class="nav-links">
+        <a href="/main_dashboard/">Dashboard</a>
+        <a href="/gamification/">Gamification</a>
+        <a href="/quiz_panel/">Quiz</a>
+        <a href="/progress_dashboard/">Progress</a>
+        <a href="/logout/" class="logout-btn">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- SEARCH -->
+    <div class="card">
+        <h2>Explore Financial Topics</h2>
+
+        <form method="POST" onsubmit="showLoader()">
+            {% csrf_token %}
+            <div class="search-box">
+                <input type="text" name="topic" placeholder="Enter topic (FD, SIP, EMI, RD)" required>
+                <button type="submit">Learn</button>
+            </div>
+        </form>
+
+        <div class="loader" id="loader">
+            <span></span><span></span><span></span>
+            <p>Generating AI content & videos...</p>
+        </div>
+    </div>
+
+    {% if content %}
+    <div class="card">
+        <div class="section-title">📖 Study Material</div>
+        <div class="content">{{ content }}</div>
+    </div>
+    {% endif %}
+
+    {% if videos %}
+        <div class="card">
+            <div class="section-title">🎥 Recommended Animated Videos</div>
+
+            <div class="video-grid">
+                {% for video in videos %}
+                <div class="video-card">
+                    <h4>{{ video.title }}</h4>
+
+                    <div class="iframe-wrapper" id="video-container-{{ forloop.counter }}">
+                        
+                        <!-- Thumbnail Preview -->
+                        <div class="video-thumbnail" 
+                            onclick="loadVideo('{{ video.video_id }}', 'video-container-{{ forloop.counter }}')"
+                            style="
+                                position:absolute;
+                                width:100%;
+                                height:100%;
+                                background:url('https://img.youtube.com/vi/{{ video.video_id }}/hqdefault.jpg') center/cover no-repeat;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                cursor:pointer;
+                            ">
+                            
+                            <div style="
+                                background:rgba(0,0,0,0.6);
+                                padding:15px 25px;
+                                border-radius:50px;
+                                font-size:20px;
+                            ">
+                                ▶ Play Video
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div style="margin-top:10px;text-align:center;">
+                        <a href="https://www.youtube.com/watch?v={{ video.video_id }}" 
+                        target="_blank"
+                        style="color:#60a5fa;font-size:13px;">
+                        🔗 Open on YouTube
+                        </a>
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

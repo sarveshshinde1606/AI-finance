@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - AI Finance Planner</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #0a0f1c 0%, #111827 100%);
+  color: #f1f5f9;
+}
+
+/* Container */
+.register-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 15px;
+}
+
+/* Glassmorphic Card */
+.register-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 50px 35px;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 0 40px rgba(14, 165, 233, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Heading */
+.register-card h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Form Inputs */
+.register-card input,
+.register-card select {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #e2e8f0;
+  margin-bottom: 20px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  width: 100%;
+  transition: 0.3s;
+}
+.register-card input:focus,
+.register-card select:focus {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+  outline: none;
+}
+.register-card label {
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+/* Register Button */
+.btn-register {
+  background: linear-gradient(90deg, #0ea5e9, #6366f1);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 0;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+.btn-register:hover {
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  transform: scale(1.05);
+}
+
+/* Login Link */
+.register-card p {
+  margin-top: 20px;
+  color: #94a3b8;
+}
+.register-card p a {
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: 500;
+}
+.register-card p a:hover {
+  color: #a855f7;
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<section class="register-section">
+  <div class="register-card">
+    <h1>Create Your Account</h1>
+    {% if messages %}
+      <div class="mb-3">
+        {% for message in messages %}
+          <div class="alert 
+                      {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" 
+               role="alert" style="border-radius:15px; background: rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.2); padding:12px;">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Enter your username" required>
+      <input type="email" name="email" placeholder="Enter your email" required>
+      
+      <!-- Added Age Field -->
+      <input type="number" name="age" placeholder="Enter your age" min="10" max="100" required>
+
+      <input type="password" name="password1" placeholder="Enter your password" required>
+      <input type="password" name="password2" placeholder="Confirm password" required>
+      <button type="submit" class="btn btn-register mt-3">Register</button>
+    </form>
+    <p>Already have an account? <a href="/login1">Login here</a></p>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

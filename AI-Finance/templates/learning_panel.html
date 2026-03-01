@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Financial Learning</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b1220;
+  --card: rgba(255,255,255,0.10);
+  --card2: rgba(255,255,255,0.14);
+  --border: rgba(255,255,255,0.16);
+
+  --text:#ffffff;
+  --muted: rgba(255,255,255,0.80);
+
+  --cyan:#22d3ee;
+  --yellow:#fbbf24;
+}
+
+body{
+  background: radial-gradient(900px 420px at 20% 10%, rgba(34,211,238,0.10), transparent 55%),
+              radial-gradient(900px 420px at 80% 30%, rgba(251,191,36,0.10), transparent 55%),
+              var(--bg);
+  color: var(--text) !important;
+}
+
+*{ color: var(--text); }
+
+.card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+}
+
+.small-muted{
+  color: var(--muted) !important;
+  opacity: 1;
+}
+
+h2,h4,h5, p, li, b, strong, small, span, div{
+  color: var(--text) !important;
+}
+
+.text-warning{ color: var(--yellow) !important; }
+.text-info{ color: var(--cyan) !important; }
+
+.video-card{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.video-card img{
+  border-radius: 14px;
+  border: 1px solid var(--border);
+}
+
+a{
+  color: var(--cyan) !important;
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
+}
+
+pre{
+  color: var(--text) !important;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.hr-soft{
+  border-top: 1px solid rgba(255,255,255,0.14);
+}
+
+.badge-soft{
+  background: rgba(34,211,238,0.16);
+  border: 1px solid rgba(34,211,238,0.30);
+  color: var(--text) !important;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+
+.btn-info{
+  font-weight: 800;
+}
+
+.section-title{
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+</style>
+</head>
+
+<body>
+<div class="container py-4">
+
+  <h2 class="text-center mb-2 section-title">AI Financial Learning</h2>
+  <p class="text-center small-muted mb-4">
+    Learn FD, RD, EMI, SIP & Credit Score with AI Plan + References + Videos
+  </p>
+
+  <div class="d-flex flex-wrap gap-2 justify-content-center mb-4">
+    <span class="badge-soft">FD</span>
+    <span class="badge-soft">RD</span>
+    <span class="badge-soft">EMI</span>
+    <span class="badge-soft">SIP</span>
+    <span class="badge-soft">Credit Score</span>
+  </div>
+
+  <p>Age: <b>{{ age|default:"-" }}</b></p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <button class="btn btn-info w-100 mb-3" type="submit">
+      Generate Learning Plan
+    </button>
+  </form>
+
+  <!-- =========================
+       AI PLAN OUTPUT
+  ========================== -->
+  {% if ai_text %}
+  <div class="card mb-4">
+    <h4 class="mb-3">📌 AI Learning Plan</h4>
+    <pre>{{ ai_text }}</pre>
+  </div>
+  {% endif %}
+
+  <!-- =========================
+       FINANCE RESOURCES
+  ========================== -->
+  {% if resources_by_topic %}
+  <div class="card mb-4">
+    <h4 class="mb-3">📚 Finance Learning Resources (Definitions + Links)</h4>
+
+    {% for topic, meta in resources_by_topic.items %}
+      <div class="mt-3">
+        <h5 class="text-warning">{{ topic }}</h5>
+
+        <p class="mb-2">
+          <b>Meaning:</b>
+          {{ meta.definition|default:"(not available)" }}
+        </p>
+
+        {% if meta.key_points %}
+        <div class="mb-2">
+          <b>Key Points:</b>
+          <ul class="mb-2">
+            {% for p in meta.key_points %}
+              <li>{{ p }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        {% if meta.links %}
+        <div class="mb-2">
+          <b>Google References:</b>
+          <ul class="mb-0">
+            {% for l in meta.links %}
+              <li>
+                <a href="{{ l.url }}" target="_blank">{{ l.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <hr class="hr-soft my-3">
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- =========================
+       YOUTUBE VIDEOS
+  ========================== -->
+  {% if videos_by_topic %}
+  <div class="card">
+    <h4 class="mb-3">🎥 Recommended Videos</h4>
+
+    {% for topic, videos in videos_by_topic.items %}
+      <h5 class="mt-4 text-warning">{{ topic }}</h5>
+
+      {% if videos %}
+      <div class="row">
+        {% for v in videos %}
+        <div class="col-md-6 mb-3">
+          <div class="video-card">
+            {% if v.thumbnail %}
+              <img src="{{ v.thumbnail }}" class="img-fluid" alt="thumbnail">
+            {% endif %}
+            <p class="mt-2 mb-1"><b>{{ v.title|default:"Video" }}</b></p>
+            <small class="small-muted">{{ v.channel|default:"" }}</small>
+
+            <a href="{{ v.url }}" target="_blank"
+               class="btn btn-danger btn-sm w-100 mt-2">
+              ▶ Watch on YouTube
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+        <p class="small-muted">No videos found for this topic. Please click Generate again.</p>
+      {% endif %}
+
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- If NOTHING shows, show debug message -->
+  {% if not ai_text and not resources_by_topic and not videos_by_topic %}
+    <div class="card mt-4">
+      <h4 class="mb-2 text-warning">⚠ No Data Yet</h4>
+      <p class="small-muted mb-0">
+        Click <b>Generate Learning Plan</b> to load AI text + resources + videos.
+        If still blank, check that your view sends:
+        <code>ai_text</code>, <code>resources_by_topic</code>, <code>videos_by_topic</code>.
+      </p>
+    </div>
+  {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

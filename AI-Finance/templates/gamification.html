@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Financial Gamification Panel</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#0f172a,#111827,#1e293b);
+            min-height:100vh;
+            color:#e5e7eb;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:15px 40px;
+            background:rgba(17,24,39,0.9);
+            backdrop-filter:blur(15px);
+            box-shadow:0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .navbar h1{
+            font-size:18px;
+        }
+
+        .nav-links a{
+            text-decoration:none;
+            margin-left:20px;
+            color:#cbd5e1;
+            font-size:14px;
+            transition:.3s;
+        }
+
+        .nav-links a:hover{
+            color:#3b82f6;
+        }
+
+        .logout-btn{
+            padding:6px 14px;
+            background:linear-gradient(90deg,#ef4444,#dc2626);
+            border-radius:6px;
+            color:white !important;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container{
+            max-width:900px;
+            margin:50px auto;
+            padding:0 20px;
+        }
+
+        .card{
+            background:rgba(17,24,39,0.95);
+            backdrop-filter:blur(16px);
+            padding:30px;
+            border-radius:20px;
+            margin-bottom:30px;
+            box-shadow:0 25px 70px rgba(0,0,0,0.6);
+            animation:fadeIn .6s ease;
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:20px;
+        }
+
+        select,input,button{
+            padding:14px;
+            margin:12px 0;
+            width:100%;
+            border-radius:10px;
+            border:none;
+            font-size:15px;
+        }
+
+        input,select{
+            background:#1f2937;
+            color:white;
+        }
+
+        input:focus,select:focus{
+            outline:none;
+            box-shadow:0 0 0 2px rgba(59,130,246,0.5);
+        }
+
+        button{
+            background:linear-gradient(90deg,#2563eb,#7c3aed);
+            color:white;
+            font-weight:500;
+            cursor:pointer;
+            transition:.3s;
+        }
+
+        button:hover{
+            transform:scale(1.05);
+            box-shadow:0 10px 25px rgba(99,102,241,0.5);
+        }
+
+        /* ================= PROGRESS ================= */
+
+        .progress-container{
+            background:#1f2937;
+            border-radius:10px;
+            overflow:hidden;
+            height:14px;
+            margin-bottom:20px;
+        }
+
+        .progress-bar{
+            height:14px;
+            background:linear-gradient(90deg,#22c55e,#3b82f6);
+            width:0%;
+            transition:width .6s ease;
+        }
+
+        .score{
+            text-align:center;
+            font-size:24px;
+            font-weight:bold;
+            margin-bottom:10px;
+        }
+
+        .xp{
+            text-align:center;
+            color:#94a3b8;
+            margin-bottom:20px;
+        }
+
+        .badge{
+            font-size:40px;
+            text-align:center;
+            margin-bottom:20px;
+            animation:pop .5s ease;
+        }
+
+        hr{
+            border:0;
+            border-top:1px solid #374151;
+            margin:20px 0;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            cursor:pointer;
+        }
+
+        /* ================= ANIMATIONS ================= */
+
+        @keyframes fadeIn{
+            from{opacity:0;transform:translateY(10px);}
+            to{opacity:1;transform:translateY(0);}
+        }
+
+        @keyframes pop{
+            from{transform:scale(.5);}
+            to{transform:scale(1);}
+        }
+
+        /* ================= CONFETTI ================= */
+
+        .confetti{
+            position:fixed;
+            width:10px;
+            height:10px;
+            top:-10px;
+            animation:fall 3s linear infinite;
+        }
+
+        @keyframes fall{
+            to{transform:translateY(100vh);}
+        }
+
+        @media(max-width:768px){
+            .container{margin-top:30px;}
+        }
+
+    </style>
+
+    <script>
+        function triggerConfetti() {
+            for (let i = 0; i < 80; i++) {
+                let conf = document.createElement("div");
+                conf.className = "confetti";
+                conf.style.left = Math.random() * 100 + "vw";
+                conf.style.backgroundColor =
+                    ["#ef4444","#22c55e","#3b82f6","#facc15","#ec4899"]
+                    [Math.floor(Math.random() * 5)];
+                conf.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }
+        }
+
+        window.onload = function() {
+
+            {% if score == 5 %}
+                triggerConfetti();
+            {% endif %}
+
+            {% if score is not None %}
+                let progress = ({{ score }} / 5) * 100;
+                document.getElementById("progressBar").style.width = progress + "%";
+            {% endif %}
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <h1>🎮 Finance Gamification</h1>
+    <div class="nav-links">
+        <a href="/main_dashboard/">Dashboard</a>
+        <a href="/learning/">Learning</a>
+        <a href="/quiz_panel/">Quiz</a>
+        <a href="/progress_dashboard/">Progress</a>
+        <a href="/logout/" class="logout-btn">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- GAME START -->
+    <div class="card">
+        <h2>Financial Learning Game (5 Questions)</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="topic" placeholder="Enter Topic (FD, SIP, EMI)" required>
+
+            <select name="level">
+                <option value="Beginner">Beginner 🥉</option>
+                <option value="Intermediate">Intermediate 🥈</option>
+                <option value="Advanced">Advanced 🥇</option>
+            </select>
+
+            <button type="submit" name="start_game">🚀 Start Game</button>
+        </form>
+    </div>
+
+    <!-- QUIZ -->
+    {% if quiz and score is None %}
+    <div class="card">
+        <h3>Answer the Questions</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            {% for q in quiz %}
+                <p><strong>{{ forloop.counter }}. {{ q.question }}</strong></p>
+
+                {% for option in q.options %}
+                    <label>
+                        <input type="radio"
+                               name="q{{ forloop.parentloop.counter0 }}"
+                               value="{{ option }}"
+                               required>
+                        {{ option }}
+                    </label>
+                {% endfor %}
+                <br>
+            {% endfor %}
+
+            <button type="submit" name="submit_quiz">Submit Answers</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <!-- RESULTS -->
+    {% if score is not None %}
+    <div class="card">
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="score">
+            🎯 Your Score: {{ score }} / 5
+        </div>
+
+        <div class="xp">
+            ⭐ XP Earned: {{ score|add:score }} XP
+        </div>
+
+        <div class="badge">
+            {{ badge }}
+        </div>
+
+        <hr>
+
+        <h3>Detailed Results</h3>
+
+        {% for q in quiz %}
+            <p><strong>{{ forloop.counter }}. {{ q.question }}</strong></p>
+            <p>✅ Correct Answer: {{ q.answer }}</p>
+            <hr>
+        {% endfor %}
+
+        <form method="GET">
+            <button type="submit">🔄 Play Again</button>
+        </form>
+
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

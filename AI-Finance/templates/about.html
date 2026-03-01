@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - AI Finance Planner</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* Body & Background */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #0a0f1c;
+  position: relative;
+  color: #f1f5f9;
+}
+
+/* Particle Background */
+#particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Page Container */
+.about-section {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Project Title */
+.project-title {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 60px;
+  text-align: center;
+  animation: floatTitle 3s ease-in-out infinite alternate;
+}
+@keyframes floatTitle {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Glassmorphic Cards */
+.about-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 50px 40px;
+  max-width: 900px;
+  width: 100%;
+  margin-bottom: 40px;
+  box-shadow: 0 0 50px rgba(14, 165, 233, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.about-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 60px rgba(99, 102, 241, 0.7);
+}
+
+/* Card Headings */
+.about-card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card Paragraphs */
+.about-card p {
+  color: #cbd5e1;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+/* Team Section */
+.team-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+.team-member {
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 25px 15px;
+  max-width: 200px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+}
+.team-member:hover {
+  transform: scale(1.1);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 0 30px #38bdf8;
+}
+.team-member img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+  border: 2px solid #38bdf8;
+  transition: transform 0.3s;
+}
+.team-member h5 {
+  margin: 10px 0 5px;
+  color: #38bdf8;
+  font-weight: 600;
+}
+.team-member p {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 30px 10px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-card { padding: 40px 20px; }
+  .project-title { font-size: 2.4rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Particle Background -->
+<canvas id="particles"></canvas>
+
+<section class="about-section">
+  <div class="project-title">AI-Based Personalized Financial Learning & Planning System</div>
+
+  <!-- About the Project -->
+  <div class="about-card">
+    <h2>Our Mission</h2>
+    <p>We aim to empower individuals to learn, plan, and grow their wealth intelligently using AI-driven insights. Our system personalizes financial education, helps optimize budgets, and provides actionable investment strategies for every user.</p>
+  </div>
+
+  <!-- About the Company -->
+  <div class="about-card">
+    <h2>Our Vision</h2>
+    <p>To create a smarter financial future for everyone, where AI technology assists in making informed decisions, achieving financial goals, and ensuring long-term financial security with clarity and confidence.</p>
+  </div>
+
+  <!-- Team Section -->
+  <div class="about-card">
+    <h2>Meet Our Team</h2>
+    <div class="team-container">
+      <div class="team-member">
+        <img src="https://via.placeholder.com/110" alt="Team Member">
+        <h5>Gauri Vanve</h5>
+        <p>Project Lead</p>
+      </div>
+      <div class="team-member">
+        <img src="https://via.placeholder.com/110" alt="Team Member">
+        <h5>Chippy Jacob</h5>
+        <p>AI Specialist</p>
+      </div>
+      <div class="team-member">
+        <img src="https://via.placeholder.com/110" alt="Team Member">
+        <h5>Rekha V. R</h5>
+        <p>UI/UX Designer</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 AI-Based Financial Learning & Planning System | Designed by Source Code Technology Pvt Ltd
+</footer>
+
+<!-- JS for Particles -->
+<script>
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+const particles = [];
+const particleCount = 80;
+
+function random(min,max){ return Math.random()*(max-min)+min; }
+
+class Particle {
+  constructor(){
+    this.x = random(0,w);
+    this.y = random(0,h);
+    this.radius = random(1,3);
+    this.speedX = random(-0.5,0.5);
+    this.speedY = random(-0.5,0.5);
+  }
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x> w || this.x<0) this.speedX*=-1;
+    if(this.y> h || this.y<0) this.speedY*=-1;
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(14,165,233,0.6)';
+    ctx.fill();
+  }
+}
+
+for(let i=0;i<particleCount;i++) particles.push(new Particle());
+
+function animate(){
+  ctx.clearRect(0,0,w,h);
+  particles.forEach(p=>{
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animate);
+}
+
+animate();
+window.addEventListener('resize',()=>{
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>

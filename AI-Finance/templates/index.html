@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Based Personalized Financial Learning & Planning System</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0a0f1c;
+  color: #f1f5f9;
+  overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+  background: rgba(10, 15, 28, 0.7);
+  backdrop-filter: blur(10px);
+}
+.navbar-brand {
+  background: linear-gradient(90deg, #0ea5e9, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+.nav-link {
+  color: #e2e8f0 !important;
+  margin: 0 10px;
+  transition: 0.3s;
+}
+.nav-link:hover {
+  color: #38bdf8 !important;
+}
+.btn-nav {
+  border-radius: 30px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.btn-login {
+  background: linear-gradient(90deg, #0ea5e9, #6366f1);
+  color: #fff !important;
+}
+.btn-login:hover {
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+}
+.btn-register {
+  background: transparent;
+  border: 2px solid #38bdf8;
+  color: #38bdf8 !important;
+}
+.btn-register:hover {
+  background: #38bdf8;
+  color: #fff !important;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0a0f1c 0%, #111827 100%);
+}
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  margin-top: 15px;
+}
+.hero .btn-custom {
+  background: linear-gradient(90deg, #0ea5e9, #6366f1);
+  color: white;
+  border-radius: 30px;
+  padding: 12px 35px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.hero .btn-custom:hover {
+  background: linear-gradient(90deg, #6366f1, #a855f7);
+  transform: scale(1.05);
+}
+
+/* Animated Background Waves */
+.hero::before, .hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 250px;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1);
+  opacity: 0.1;
+  filter: blur(80px);
+  animation: wave 8s ease-in-out infinite alternate;
+}
+.hero::after {
+  bottom: 0;
+  animation-delay: 4s;
+}
+@keyframes wave {
+  from { transform: translateY(0px) rotate(0deg); }
+  to { transform: translateY(-50px) rotate(2deg); }
+}
+
+/* Features */
+.features {
+  padding: 100px 0;
+  background: #0f172a;
+}
+.feature-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 40px 20px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+.feature-card:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.1);
+}
+.feature-card i {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #0ea5e9, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100%{transform: translateY(0);}
+  50%{transform: translateY(-10px);}
+}
+
+/* Testimonials */
+.testimonials {
+  padding: 100px 0;
+  background: linear-gradient(180deg, #0f172a, #1e293b);
+}
+.testimonial {
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
+  padding: 30px;
+  margin: 10px;
+  transition: 0.3s;
+}
+.testimonial:hover {
+  background: rgba(255,255,255,0.1);
+}
+.testimonial i {
+  color: #38bdf8;
+  font-size: 1.5rem;
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1, #a855f7);
+  color: white;
+  text-align: center;
+  padding: 100px 0;
+}
+.cta h2 {
+  font-weight: 700;
+  font-size: 2rem;
+}
+.cta .btn-light {
+  border-radius: 30px;
+  font-weight: 600;
+  padding: 12px 30px;
+}
+
+/* Footer */
+footer {
+  background: #0a0f1c;
+  color: #cbd5e1;
+  text-align: center;
+  padding: 40px 0;
+}
+footer i {
+  color: #38bdf8;
+  margin: 0 10px;
+  transition: 0.3s;
+}
+footer i:hover {
+  color: #a855f7;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">AI Finance Planner</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="nav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about/">about</a></li>
+        <li class="nav-item"><a class="nav-link btn btn-sm btn-register ms-3 px-3" href="/register/">Register</a></li>
+        <li class="nav-item"><a class="nav-link btn btn-sm btn-login ms-2 px-3" href="/login1/">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="home" class="hero">
+  <div class="container">
+    <h1>AI-Based Personalized Financial Learning & Planning System</h1>
+    <p>Learn, plan, and grow your wealth smarter with our AI-powered financial planning system.</p>
+    <div class="mt-4">
+      <a href="#features" class="btn btn-custom me-3">Explore Features</a>
+      <a href="/register/" class="btn btn-outline-light rounded-pill px-4 py-2">Register Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="features text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-5">AI-Driven Features</h2>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="fa-solid fa-brain"></i>
+          <h5>Smart Learning</h5>
+          <p>Personalized financial education curated with AI insights.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="fa-solid fa-chart-line"></i>
+          <h5>Predictive Planning</h5>
+          <p>AI forecasts future trends and suggests optimized plans.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="fa-solid fa-wallet"></i>
+          <h5>Budget Optimization</h5>
+          <p>Automated budget analysis and improvement recommendations.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="fa-solid fa-chart-pie"></i>
+          <h5>Performance Insights</h5>
+          <p>AI-generated visual insights into spending and investments.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials" class="testimonials text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-5">What Users Say</h2>
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="testimonial">
+            <i class="fa-solid fa-quote-left mb-3"></i>
+            <p>“This AI planner helped me understand investments like never before!”</p>
+            <h6 class="mt-3">— Riya Sharma</h6>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testimonial">
+            <i class="fa-solid fa-quote-left mb-3"></i>
+            <p>“The personalized learning feature made financial concepts so easy to grasp.”</p>
+            <h6 class="mt-3">— Ankit Verma</h6>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testimonial">
+            <i class="fa-solid fa-quote-left mb-3"></i>
+            <p>“Beautiful design and powerful insights — truly the future of finance.”</p>
+            <h6 class="mt-3">— Sneha Patil</h6>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>Start Building Your Financial Future Today</h2>
+    <p class="mt-3">Your smart journey begins with AI. Learn, plan, and prosper.</p>
+    <a href="#" class="btn btn-light mt-4 px-4 py-2">Register Now</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 AI-Based Financial Learning & Planning System </p>
+  <div class="mt-3">
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-linkedin"></i></a>
+    <a href="#"><i class="fab fa-github"></i></a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

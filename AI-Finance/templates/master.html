@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}AI Finance Planner{% endblock %}</title>
+
+<!-- Bootstrap & Font Awesome -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin:0; padding:0;
+    background: linear-gradient(135deg, #0a0f1c, #111827);
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+
+  /* Floating Background Shapes */
+  .bg-shape { position:absolute; border-radius:50%; filter:blur(120px); opacity:0.15; z-index:0; animation: float 12s ease-in-out infinite alternate;}
+  .bg-shape.shape1 { width:400px; height:400px; background:#0ea5e9; top:-100px; left:-100px;}
+  .bg-shape.shape2 { width:600px; height:600px; background:#a855f7; bottom:-150px; right:-150px; animation-delay:6s;}
+  @keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-30px);}100%{transform:translateY(0);}}
+
+  /* Navbar */
+  .navbar {background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); border-bottom:1px solid rgba(255,255,255,0.1); z-index:100;}
+  .navbar-brand {font-weight:700; font-size:1.6rem; background: linear-gradient(90deg,#0ea5e9,#6366f1,#a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+  .nav-link {color:#e2e8f0 !important; font-weight:500; position:relative;}
+  .nav-link::after {content:''; position:absolute; width:0; height:2px; left:0; bottom:-4px; background:linear-gradient(90deg,#0ea5e9,#6366f1); transition:width 0.3s;}
+  .nav-link:hover::after{width:100%;} .nav-link:hover{color:#38bdf8 !important;}
+
+  /* Hero Section */
+  .hero {position:relative; min-height:90vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; z-index:1;}
+  .hero h1 {font-size:3rem; font-weight:700; background: linear-gradient(90deg,#0ea5e9,#6366f1,#a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+  .hero p {font-size:1.2rem; color:#cbd5e1; margin-top:15px; max-width:650px;}
+  .btn-hero {background:linear-gradient(90deg,#0ea5e9,#6366f1); color:white; border-radius:30px; padding:12px 35px; font-weight:600; transition:0.3s;}
+  .btn-hero:hover {background:linear-gradient(90deg,#6366f1,#a855f7); transform:scale(1.05);}
+
+  /* Features Section */
+  .features {padding:100px 0; text-align:center;}
+  .feature-card {background: rgba(255,255,255,0.05); border-radius:25px; padding:30px 20px; transition:transform 0.3s;}
+  .feature-card:hover {transform:scale(1.05); background: rgba(255,255,255,0.1);}
+  .feature-card i {font-size:2.5rem; background:linear-gradient(90deg,#0ea5e9,#a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:15px; animation: float 4s ease-in-out infinite;}
+
+  /* About Section */
+  .about {padding:100px 0; background: linear-gradient(180deg,#111827,#1e293b);}
+  .about h2 {font-size:2.5rem; margin-bottom:30px;}
+  .about p {font-size:1.1rem; color:#cbd5e1; max-width:750px; margin:auto;}
+
+  /* CTA Section */
+  .cta {padding:80px 0; text-align:center; background:linear-gradient(135deg,#0ea5e9,#6366f1,#a855f7); color:white;}
+  .cta h2 {font-size:2.2rem; font-weight:700;}
+  .cta p {margin-top:15px; font-size:1.1rem;}
+  .btn-cta {background:white; color:#0f172a; font-weight:600; padding:12px 30px; border-radius:30px; transition:0.3s;}
+  .btn-cta:hover {background:#e2e8f0; color:#111827; transform:scale(1.05);}
+
+  /* Footer */
+  footer {background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); padding:30px 0; text-align:center; font-size:0.9rem; color:#94a3b8; border-top:1px solid rgba(255,255,255,0.1);}
+  footer a {color:#38bdf8; text-decoration:none; font-weight:500;}
+  footer a:hover {color:#a855f7;}
+</style>
+
+{% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- Background Shapes -->
+<div class="bg-shape shape1"></div>
+<div class="bg-shape shape2"></div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">AI Finance Planner</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        {% comment %} <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+        <li class="nav-item"><a class="nav-link" href="/login1">Login</a></li> {% endcomment %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="flex-fill">
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <h1>AI-Based Personalized Financial Learning & Planning System</h1>
+    <p>Learn, plan, and grow your wealth smarter with AI-driven personalized insights, predictive analysis, and budget optimization tools.</p>
+    <a href="/register" class="btn btn-hero mt-4">Get Started</a>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features container">
+    <h2 class="fw-bold mb-5">AI-Driven Features</h2>
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="fa-solid fa-brain"></i>
+          <h5>Smart Learning</h5>
+          <p>Personalized financial education curated with AI insights.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="fa-solid fa-chart-line"></i>
+          <h5>Predictive Planning</h5>
+          <p>AI forecasts future trends and suggests optimized plans.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="fa-solid fa-wallet"></i>
+          <h5>Budget Optimization</h5>
+          <p>Automated budget analysis and improvement recommendations.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="fa-solid fa-chart-pie"></i>
+          <h5>Performance Insights</h5>
+          <p>AI-generated visual insights into spending and investments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container text-center">
+      <h2>About Us</h2>
+      <p>Source Code Technology Pvt Ltd specializes in innovative AI-driven solutions that help individuals and businesses manage finances intelligently. 
+      Our AI Finance Planner offers customized learning modules, predictive planning, and actionable insights to grow wealth efficiently.</p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2>Start Building Your Financial Future Today</h2>
+      <p>Take control of your finances with AI-powered insights. Register now and start your journey to smarter financial planning.</p>
+      <a href="/register" class="btn btn-cta mt-4">Join Now</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 AI Finance Planner | Designed by <a href="#">Source Code Technology Pvt Ltd</a></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
